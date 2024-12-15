@@ -11,21 +11,21 @@ const rendering = @import("./systems/rendering.zig").rendering;
 pub const ECS = ecs.Ecs(&[_]type{ Canvas, Rectangle });
 
 export fn run() void {
-    const document = global.document() catch @panic("error");
+    const document = global.document() catch unreachable;
     defer document.deinit();
 
-    const app = document.querySelector("#app") catch @panic("error");
+    const app = document.querySelector("#app") catch unreachable;
     defer app.deinit();
 
     const canvas = app.toCanvas();
     defer canvas.deinit();
 
-    const context = canvas.getContext() catch @panic("error");
+    const context = canvas.getContext() catch unreachable;
     defer canvas.deinit();
 
-    context.fillRect(0, 0, 200, 200) catch @panic("error");
+    context.fillRect(0, 0, 200, 200) catch unreachable;
 
-    var registry = ECS.init(std.heap.wasm_allocator, 2) catch @panic("error");
+    var registry = ECS.init(std.heap.wasm_allocator, 2) catch unreachable;
     defer registry.deinit();
 
     const canvas_entity = registry.newEntity();
@@ -37,7 +37,7 @@ export fn run() void {
     const rect_entity2 = registry.newEntity();
     registry.set(rect_entity2, Rectangle{ .x = 200, .y = 200, .width = 200, .height = 200 });
 
-    rendering(&registry) catch @panic("error");
+    rendering(&registry) catch unreachable;
 }
 
 pub fn panic(msg: []const u8, _: ?*std.builtin.StackTrace, _: ?usize) noreturn {
