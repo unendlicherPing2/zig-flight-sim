@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    <canvas id="app" width="400" height="400"></canvas>
+
     <script type="module">
         import { ZigJS } from './glue.js';
 
@@ -22,13 +24,13 @@
             // uses its own namespace.
             WebAssembly.instantiate(bytes, zigjs.importObject())
         ).then(results => {
-            const { memory, print } = results.instance.exports;
+            const { memory, run } = results.instance.exports;
 
             // Set the memory since zigjs interfaces with memory.
             zigjs.memory = memory;
 
             // Run any of your exported functions!
-            print();
+            run();
         });
     </script>
 </body>
