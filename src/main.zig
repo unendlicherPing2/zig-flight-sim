@@ -25,7 +25,7 @@ export fn run() void {
 
     context.fillRect(0, 0, 200, 200) catch unreachable;
 
-    var registry = ECS.init(std.heap.wasm_allocator, 2) catch unreachable;
+    var registry = ECS.init(std.heap.wasm_allocator, 100) catch unreachable;
     defer registry.deinit();
 
     const canvas_entity = registry.newEntity();
