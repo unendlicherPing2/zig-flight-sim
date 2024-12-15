@@ -14,7 +14,7 @@ export fn run() void {
     const document = global.document() catch @panic("error");
     defer document.deinit();
 
-    const app = document.querySelector("#ap") catch @panic("error");
+    const app = document.querySelector("#app") catch @panic("error");
     defer app.deinit();
 
     const canvas = app.toCanvas();
@@ -45,5 +45,5 @@ pub fn panic(msg: []const u8, _: ?*std.builtin.StackTrace, _: ?usize) noreturn {
     defer console.deinit();
     console.log(msg) catch unreachable;
 
-    suspend {}
+    while(true) {}
 }
