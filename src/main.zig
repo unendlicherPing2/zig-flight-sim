@@ -39,11 +39,3 @@ export fn run() void {
 
     rendering(&registry) catch unreachable;
 }
-
-pub fn panic(msg: []const u8, _: ?*std.builtin.StackTrace, _: ?usize) noreturn {
-    const console = global.console() catch unreachable;
-    defer console.deinit();
-    console.log(msg) catch unreachable;
-
-    while(true) {}
-}
